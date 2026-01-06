@@ -29,5 +29,12 @@ namespace Supabase.Gotrue
         /// PKCE is recommended for mobile and server-side applications.
         /// </summary>
         public OAuthFlowType FlowType { get; set; } = OAuthFlowType.Implicit;
+
+
+        /// <summary>
+        /// The state parameter for CSRF protection.
+        /// This should be stored by the developer and validated when the OAuth callback is received.
+        /// </summary>
+        public string? State { get; set; }
     }
 }

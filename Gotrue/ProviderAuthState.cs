@@ -26,5 +26,11 @@ namespace Supabase.Gotrue
         {
             Uri = uri;
         }
+
+        /// <summary>
+        /// The state parameter for CSRF protection.
+        /// This should be stored by the developer and validated when the OAuth callback is received.
+        /// </summary>
+        public string? State { get; set; }  
     }
 }

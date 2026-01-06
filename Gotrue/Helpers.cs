@@ -105,7 +105,23 @@ namespace Supabase.Gotrue
 				result.PKCEVerifier = codeVerifier;
 			}
 
-			if (attr == null)
+            // Handle state parameter for CSRF protection
+            string stateParameter;
+            if (!string.IsNullOrEmpty(options.State))
+            {
+                // Developer provided their own state - use it
+                stateParameter = options.State;
+            }
+            else
+            {
+                // Auto-generate state for convenience and security
+                stateParameter = Helpers.GenerateNonce();
+            }
+
+            query.Add("state", stateParameter);
+            result.State = stateParameter;
+
+            if (attr == null)
 				throw new Exception("Unknown provider");
 
 			query.Add("provider", attr.Mapping);
