@@ -68,20 +68,21 @@ namespace Supabase.Gotrue
 			var body = new Dictionary<string, object> { { "email", email }, { "password", password } };
 			var endpoint = $"{Url}/signup";
 
-			if (options != null)
-			{
-				if (!string.IsNullOrEmpty(options.RedirectTo))
-				{
-					endpoint = Helpers.AddQueryParams(endpoint, new Dictionary<string, string> { { "redirect_to", options.RedirectTo! } }).ToString();
-				}
 
-				if (options.Data != null)
-				{
-					body.Add("data", options.Data);
-				}
-			}
+            if (options != null)
+            {
+                if (options.Data != null)
+                {
+                    body.Add("data", options.Data);
+                }
+                if (!string.IsNullOrEmpty(options.CaptchaToken))
+                {
+                    body.Add("captcha_token", options.CaptchaToken);
+                }
+            }
 
-			var response = await Helpers.MakeRequest(HttpMethod.Post, endpoint, body, Headers);
+
+            var response = await Helpers.MakeRequest(HttpMethod.Post, endpoint, body, Headers);
 
 			if (!string.IsNullOrEmpty(response.Content))
 			{

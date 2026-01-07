@@ -10,5 +10,11 @@ namespace Supabase.Gotrue
         /// Optional user metadata.
         /// </summary>
         public Dictionary<string, object>? Data { get; set; }
+
+
+        /// <summary>
+        /// Captcha token for verification when captcha is enabled
+        /// </summary>
+        public string? CaptchaToken { get; set; }
     }
 }

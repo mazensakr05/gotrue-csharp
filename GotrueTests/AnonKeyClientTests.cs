@@ -123,7 +123,24 @@ namespace GotrueTests
 			AreEqual("Testing", session.User.UserMetadata["firstName"]);
 		}
 
-		[TestMethod("Client: Triggers Token Refreshed Event")]
+        [TestMethod("Client: Sign Up with Captcha Token")]
+        public async Task SignUpUserWithCaptchaToken()
+        {
+            IsTrue(AuthStateIsEmpty());
+
+            var email = $"{RandomString(12)}@supabase.io";
+            var options = new SignUpOptions
+            {
+                CaptchaToken = "test-captcha-token-12345"
+            };
+
+            var session = await _client.SignUp(email, PASSWORD, options);
+
+            VerifyGoodSession(session);
+        }
+
+
+        [TestMethod("Client: Triggers Token Refreshed Event")]
 		public async Task ClientTriggersTokenRefreshedEvent()
 		{
 			var tsc = new TaskCompletionSource<string>();
